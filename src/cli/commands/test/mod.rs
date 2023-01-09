@@ -160,6 +160,13 @@ impl Display for TestOutput {
 	}
 }
 
+
+/// Create a `BuiltinHintProcessor` object with those three
+/// extra hints :
+/// - skip hint, [cf src/hints/skip.rs]
+/// - expect_revert hint [cf src/hints/expect_revert/mod.rs]
+/// - and mock_call hint [cf src/hints/mock_call.rs]
+///
 fn setup_hint_processor() -> BuiltinHintProcessor {
 	let skip_hint = Rc::new(HintFunc(Box::new(hints::skip)));
 	let mock_call_hint = Rc::new(HintFunc(Box::new(hints::mock_call)));
