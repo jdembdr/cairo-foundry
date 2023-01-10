@@ -12,7 +12,7 @@ mod skip;
 pub use skip::*;
 
 lazy_static! {
-	/// the `HINT_OUTPUT_BUFFER` is a hasmap<Uuid,String> protected from concurrency
+	/// the `HINT_OUTPUT_BUFFER` is a hashmap<Uuid,String> protected from concurrency
 	/// with a RwLock used by `fn test_single_entrypoint` to store the output of the `cairo_run`
 	/// command for each test entrypoint.
 	///

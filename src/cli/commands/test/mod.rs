@@ -114,8 +114,8 @@ impl From<(String, TestStatus)> for TestResult {
 /// let plain_path = PathBuf::from("path_to_your_program");
 /// let compiled_path = compile(&plain_path)?;
 /// let expected_entrypoints = vec![
-/// 	"test_function1",
-/// 	"test_function2"
+///     "test_function1",
+///     "test_function2"
 /// ]
 ///
 /// assert_eq!(list_test_entrypoints(compiled_path), expected_entrypoints);
@@ -204,8 +204,8 @@ fn list_cairo_files(root: &PathBuf) -> Result<Vec<PathBuf>, ListCommandError> {
 /// let entrypoints = list_test_entrypoints(compiled_path);
 ///
 /// assert_eq!(
-/// 	compile_and_list_entrypoints(plain_path),
-/// 	(plain_path, compiled_path, entrypoints)
+///     compile_and_list_entrypoints(plain_path),
+///     (plain_path, compiled_path, entrypoints)
 /// )
 /// ```
 fn compile_and_list_entrypoints(
@@ -231,9 +231,6 @@ fn purge_hint_buffer(execution_uuid: &Uuid, output: &mut String) {
 /// It will then return a TestResult, representing the output of the test.
 ///
 /// # Examples
-///
-/// Basic usage:
-///
 /// ```ignore
 /// //assuming your program have a "test_function1" and "test_function2" functions.
 ///
@@ -305,14 +302,15 @@ pub(crate) fn test_single_entrypoint(
 
 	// Display the execution output if present
 	match runner.get_output(&mut vm) {
-		Ok(runner_output) =>
+		Ok(runner_output) => {
 			if !runner_output.is_empty() {
 				output.push_str(&format!(
 					"[{}]:\n{}",
 					"execution output".purple(),
 					&runner_output
 				));
-			},
+			}
+		},
 		Err(e) => eprintln!("failed to get output from the cairo runner: {e}"),
 	};
 
@@ -387,14 +385,15 @@ impl CommandExecution<TestOutput, TestCommandError> for TestArgs {
 			.map(compile_and_list_entrypoints)
 			.map(|res| -> Result<TestResult, TestCommandError> {
 				match res {
-					Ok((path_to_original, path_to_compiled, test_entrypoints)) =>
+					Ok((path_to_original, path_to_compiled, test_entrypoints)) => {
 						run_tests_for_one_file(
 							&hint_processor,
 							path_to_original,
 							path_to_compiled,
 							test_entrypoints,
 							hooks.clone(),
-						),
+						)
+					},
 					Err(err) => Err(err),
 				}
 			})
